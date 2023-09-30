@@ -8,6 +8,7 @@ RUN mv wtf-bookworm.sources /etc/apt/sources.list.d/
 RUN apt-get update --fix-missing
 RUN apt install -yq software-properties-common
 RUN apt-get install -yq openjdk-8-jre-headless openjdk-8-jdk-headless unzip wget cmake
+RUN apt-get install -yq gcc-mingw-w64
 
 RUN rustup toolchain install 1.71.0
 RUN rustup default 1.71
@@ -17,6 +18,11 @@ RUN rustup target add armv7-linux-androideabi
 RUN rustup target add aarch64-linux-android
 RUN rustup target add i686-linux-android
 RUN rustup target add x86_64-linux-android
+RUN rustup target add wasm32-unknown-unknown
+RUN rustup target add x86_64-pc-windows-gnu
+
+# for linux sound
+RUN apt-get install -yq libasound2-dev
 
 # Install Android SDK
 ENV ANDROID_HOME /opt/android-sdk-linux
