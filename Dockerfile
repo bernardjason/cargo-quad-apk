@@ -10,8 +10,8 @@ RUN apt install -yq software-properties-common
 RUN apt-get install -yq openjdk-8-jre-headless openjdk-8-jdk-headless unzip wget cmake
 RUN apt-get install -yq gcc-mingw-w64
 
-RUN rustup toolchain install 1.71.0
-RUN rustup default 1.71
+RUN rustup toolchain install 1.81.0
+RUN rustup override set 1.81.0
 RUN rustc --version
 
 RUN rustup target add armv7-linux-androideabi
@@ -55,6 +55,9 @@ RUN cargo install --path /root/cargo-apk
 
 # Remove source and build files
 RUN rm -rf /root/cargo-apk
+
+RUN rustup show  > /root/rustup-show.txt
+RUN rustup --version  > /root/rustup-show.txt
 
 # Add build-tools to PATH, for apksigner
 ENV PATH="/opt/android-sdk-linux/build-tools/31.0.0/:${PATH}"
